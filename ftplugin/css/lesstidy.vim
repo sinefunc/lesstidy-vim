@@ -12,4 +12,5 @@ if !executable('lesstidy')
 endif
 
 exe 'set equalprg=' . s:lesstidy
+map + {v}=
 
