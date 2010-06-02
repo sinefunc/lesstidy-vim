@@ -4,7 +4,11 @@ Lesstidy for VIM
 Installation
 ------------
 
-Type `rake install`. This will install it in `~/.vim`.
+This will install it in `~/.vim`. You can delete the folder this creates afterwards.
+
+    git clone --recursive git://github.com/sinefunc/lesstidy-vim.git
+    cd lesstidy-vim && rake install
+
 
 Usage
 -----
