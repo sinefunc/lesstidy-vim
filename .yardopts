@@ -1,0 +1,4 @@
+--files="manual/*"
+--files="manual/*/*"
+--files="AUTHORS"
+--files="CHANGELOG"
