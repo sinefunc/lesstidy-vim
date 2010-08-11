@@ -18,3 +18,7 @@ task :install do
 
   puts "Done."
 end
+
+task :update do
+  exec "git subtree pull --prefix=ftplugin/css/lesstidy --squash http://github.com/sinefunc/lesstidy.git master"
+end
