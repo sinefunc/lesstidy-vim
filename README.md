@@ -20,7 +20,6 @@ Step 2: Install lesstidy-vim into ~/.vim/bundle/.
 
     mkdir -p ~/.vim/bundle
     git clone git://github.com/sinefunc/lesstidy-vim.git ~/.vim/bundle/lesstidy-vim
-    cd ~/.vim/bundle/lesstidy-vim && git submodule update --init
 
 Manual installation
 -------------------
@@ -28,9 +27,7 @@ Manual installation
 If you don't want to up pathogen, use the installer provided.
 
     git clone git://github.com/sinefunc/lesstidy-vim.git
-    cd lesstidy-vim
-    git submodule update --init
-    rake install
+    cd lesstidy-vim && rake install
 
 Usage
 -----
