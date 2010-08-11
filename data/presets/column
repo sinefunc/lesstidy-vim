@@ -1,0 +1,9 @@
+--selector-width=19
+--subrule-indent=2
+--open-brace-spaces=s|s
+--close-brace-spaces=|n
+--semicolon-spaces=|s
+--colon-spaces=|s
+--no-selector-wrap
+--wrap-width=120
+--property-indent=3

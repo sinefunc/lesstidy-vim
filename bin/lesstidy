@@ -1,0 +1,101 @@
+#!/usr/bin/env ruby
+lib_path = File.dirname(__FILE__) + "/../lib"
+$:.unshift lib_path
+
+require 'optparse'
+require 'rubygems'
+require 'lesstidy'
+require 'ostruct'
+
+options = OpenStruct.new({
+  :input  => '-',
+  :output => '-',
+  :debug  => false,
+  :style  => Hash.new
+})
+
+opts = OptionParser.new do |o|
+  o.banner = "usage: lesstidy [<input>]"
+  o.separator ""
+
+  o.on("-d", "--debug", "show debug info instead") do
+    options.debug = true
+  end
+  
+  o.on('-o', '--output FILE', 'output file') do |file|
+    options.output = file
+  end
+
+  # Help
+  o.on("-h", "--help", "show this message") do
+    puts opts
+    exit
+  end
+
+  Lesstidy::StyleParser.parse o, options.style
+
+  o.separator ""
+  o.separator "Available presets:"
+  Lesstidy::StyleParser.presets.each do |preset|
+    o.separator("        --preset=#{preset}")
+  end
+end
+
+begin
+  opts.parse!
+rescue OptionParser::InvalidOption
+  puts opts
+  exit
+end
+
+if ARGV.size == 1
+  options.input = ARGV[0]
+elsif ARGV.size > 1
+  puts opts
+  exit
+end
+
+begin
+  input = options.input == '-' ? STDIN : File.open(options.input, "r")
+rescue Errno::ENOENT
+  STDERR << "Can't open input file for reading"
+  exit
+end
+
+begin
+  output = options.output == '-' ? STDOUT : File.open(options.output, "w")
+rescue Errno::ENOENT
+  STDERR << "Can't open output file for reading"
+  exit
+end
+
+if options.style == {}
+  options.style = Lesstidy::StyleParser.defaults
+end
+
+contents = input.read
+wrapper = {
+  :pre =>  /^[ \n\t]*/.match(contents).to_s,
+  :post => /[ \n\t]*$/.match(contents).to_s
+}
+
+begin
+  style = Lesstidy::Style.new(options.style)
+  doc = Lesstidy::Document.new(contents)
+
+  if options.debug
+    output << doc.inspect.strip
+  else
+    output << wrapper[:pre] << doc.to_css(style).strip << wrapper[:post] << "\n\n"
+  end
+
+rescue Lesstidy::ParseError => e
+  output << "/* Parse error: #{e.message} */\n"
+  output << contents
+end
+
+
+input.close
+output.close
+
+
