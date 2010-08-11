@@ -1,3 +1,0 @@
-[submodule "lesstidy"]
-	path = ftplugin/css/lesstidy
-	url = git@github.com:sinefunc/lesstidy
