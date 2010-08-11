@@ -1,61 +1,44 @@
-Lesstidy
-========
+Lesstidy for VIM - v0.1.0
+=========================
 
-A CSS tidying tool.
+Installing via pathogen
+-----------------------
 
-Installation (for text editors)
--------------------------------
+Pathogen is a small 'package manager' for VIM. This is the recommended way to
+install lesstidy-vim.
 
- - For VIM users: http://github.com/sinefunc/lesstidy-vim
- - For Textmate users: http://github.com/sinefunc/lesstidy-textmate
+Step 1: Install pathogen, if you haven't yet.
 
-Installation (command line)
----------------------------
+    mkdir -p ~/.vim/autoload
+    curl "http://www.vim.org/scripts/download_script.php?src_id=12116" -O ~/.vim/autoload/pathogen.vim
+    echo "call pathogen#runtime_append_all_bundles()" >> ~/.vimrc
 
-To use the `lesstidy` command, type `gem install lesstidy --pre`.
+    # More info and detailed instructions for Pathogen over at:
+    # http://www.vim.org/scripts/script.php?script_id=2332
+
+Step 2: Install lesstidy-vim into ~/.vim/bundle/.
+
+    mkdir -p ~/.vim/bundle
+    git clone git://github.com/sinefunc/lesstidy-vim.git ~/.vim/bundle/lesstidy-vim
+    cd ~/.vim/bundle/lesstidy-vim && git submodule update --init
+
+Manual installation
+-------------------
+
+If you don't want to up pathogen, use the installer provided.
+
+    git clone git://github.com/sinefunc/lesstidy-vim.git
+    cd lesstidy-vim
+    git submodule update --init
+    rake install
 
 Usage
 -----
 
-General usage is `lesstidy <input> [<output>]`.
+ - Select some text and press `=` to tidy that area
+ - Press `+` to tidy up one paragraph
 
-Type `lesstidy --help` for tweaks.
+Other info
+----------
 
-.lesstidyopts file
-------------------
-
-Want to impose a LessTidy options standard to your project? Put a file called 
-`.lesstidyopts` in your project's folder. Whenever lesstidy is used without
-any style options, it finds this file (relative to the current directory).
-Put each option in it's own line.
-
-Example:
-
-    # .lesstidyopts
-    --preset=column
-    --wrap-width=140
-
-Even the text editor plugins (vim, textmate, etc) will refer to this file.
-
-Examples
---------
-
-    lesstidy --preset=compact input.css
-
-To do
------
-
- - More types
-   - Mixin declarations
-   - Var declarations
-   - import lines
- - .lesstidyopts
-
-Done:
-
- - Presets
- - bin/lesstidy
- - blackbox testing
- - Comments
- - recursive wrapping
-
+To install to another path, use: `rake install vim_path=~/vim/`
