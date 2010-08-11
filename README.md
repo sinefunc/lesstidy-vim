@@ -1,5 +1,5 @@
-Lesstidy for VIM
-----------------
+Lesstidy for VIM - v0.1.0
+=========================
 
 Installing via pathogen
 -----------------------
